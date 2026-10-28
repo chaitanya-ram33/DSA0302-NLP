@@ -1,0 +1,348 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNfJXJ09pcanm3Pimf8yA4V",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/chaitanya-ram33/DSA0302-NLP/blob/main/CO2%20AT1%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "words = [\"connected\", \"connecting\", \"connection\"]\n",
+        "\n",
+        "def analyze_word(word):\n",
+        "    if word == \"connected\":\n",
+        "        return \"connect\", \"-ed\", \"Inflectional\", \"connect\"\n",
+        "\n",
+        "    elif word == \"connecting\":\n",
+        "        return \"connect\", \"-ing\", \"Inflectional\", \"connect\"\n",
+        "\n",
+        "    elif word == \"connection\":\n",
+        "        return \"connect\", \"-ion\", \"Derivational\", \"connect\"\n",
+        "\n",
+        "    return word, \"None\", \"Unclassified\", word\n",
+        "\n",
+        "results = []\n",
+        "\n",
+        "for word in words:\n",
+        "    root, suffix, category, normalized = analyze_word(word)\n",
+        "\n",
+        "    results.append({\n",
+        "        \"Original Word\": word,\n",
+        "        \"Root\": root,\n",
+        "        \"Suffix\": suffix,\n",
+        "        \"Transformation\": category,\n",
+        "        \"Normalized Form\": normalized\n",
+        "    })\n",
+        "\n",
+        "df = pd.DataFrame(results)\n",
+        "print(df.to_string(index=False))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KEsYXfK2mB4-",
+        "outputId": "ad2913cf-7fac-4d97-b27f-b9acc7b5c9fd"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Word    Root Suffix Transformation Normalized Form\n",
+            "    connected connect    -ed   Inflectional         connect\n",
+            "   connecting connect   -ing   Inflectional         connect\n",
+            "   connection connect   -ion   Derivational         connect\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "words = [\"unhappy\", \"happiness\", \"happily\"]\n",
+        "\n",
+        "def parse_word(word):\n",
+        "    if word.startswith(\"un\") and word[2:] == \"happy\":\n",
+        "        return \"un-\", \"happy\", \"None\", \"Derivational\", \"happy\"\n",
+        "\n",
+        "    elif word == \"happiness\":\n",
+        "        return \"None\", \"happy\", \"-ness\", \"Derivational\", \"happy\"\n",
+        "\n",
+        "    elif word == \"happily\":\n",
+        "        return \"None\", \"happy\", \"-ly\", \"Derivational\", \"happy\"\n",
+        "\n",
+        "    return \"None\", word, \"None\", \"Unclassified\", word\n",
+        "\n",
+        "results = []\n",
+        "\n",
+        "for word in words:\n",
+        "    prefix, root, suffix, category, normalized = parse_word(word)\n",
+        "\n",
+        "    results.append({\n",
+        "        \"Original Word\": word,\n",
+        "        \"Prefix\": prefix,\n",
+        "        \"Root\": root,\n",
+        "        \"Suffix\": suffix,\n",
+        "        \"Transformation\": category,\n",
+        "        \"Normalized Root\": normalized\n",
+        "    })\n",
+        "\n",
+        "df = pd.DataFrame(results)\n",
+        "print(df.to_string(index=False))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KofkUhwwnaeq",
+        "outputId": "7c332a6b-e113-4344-f083-3b9690d37386"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Word Prefix  Root Suffix Transformation Normalized Root\n",
+            "      unhappy    un- happy   None   Derivational           happy\n",
+            "    happiness   None happy  -ness   Derivational           happy\n",
+            "      happily   None happy    -ly   Derivational           happy\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "words = [\"played\", \"player\", \"playing\"]\n",
+        "\n",
+        "def stem_word(word):\n",
+        "    if word == \"played\":\n",
+        "        return \"play\", \"-ed\", \"Inflectional\"\n",
+        "\n",
+        "    elif word == \"player\":\n",
+        "        return \"play\", \"-er\", \"Derivational\"\n",
+        "\n",
+        "    elif word == \"playing\":\n",
+        "        return \"play\", \"-ing\", \"Inflectional\"\n",
+        "\n",
+        "    return word, \"None\", \"Unclassified\"\n",
+        "\n",
+        "results = []\n",
+        "\n",
+        "for word in words:\n",
+        "    stem, affix, category = stem_word(word)\n",
+        "\n",
+        "    results.append({\n",
+        "        \"Original Word\": word,\n",
+        "        \"Extracted Stem\": stem,\n",
+        "        \"Removed Affix\": affix,\n",
+        "        \"Transformation Type\": category,\n",
+        "        \"Normalized Form\": stem\n",
+        "    })\n",
+        "\n",
+        "df = pd.DataFrame(results)\n",
+        "print(df.to_string(index=False))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OLt-7UQsniOa",
+        "outputId": "a2b0c364-80b2-4daa-a77b-571ae8e0088f"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Word Extracted Stem Removed Affix Transformation Type Normalized Form\n",
+            "       played           play           -ed        Inflectional            play\n",
+            "       player           play           -er        Derivational            play\n",
+            "      playing           play          -ing        Inflectional            play\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "words = [\"writes\", \"writing\", \"written\"]\n",
+        "\n",
+        "# Finite-state transition model\n",
+        "transitions = {\n",
+        "    \"START\": \"MATCH\",\n",
+        "    \"MATCH_REGULAR_S\": \"NORMALIZE\",\n",
+        "    \"MATCH_REGULAR_ING\": \"NORMALIZE\",\n",
+        "    \"MATCH_IRREGULAR\": \"NORMALIZE\"\n",
+        "}\n",
+        "\n",
+        "def parse_word(word):\n",
+        "    path = [\"S0:START\", \"S1:MATCH\"]\n",
+        "\n",
+        "    if word == \"writes\":\n",
+        "        components = \"write + -s\"\n",
+        "        pattern = \"Regular inflection\"\n",
+        "        rule = \"Remove -s\"\n",
+        "        root = \"write\"\n",
+        "        path.append(\"S2a:REGULAR_S\")\n",
+        "\n",
+        "    elif word == \"writing\":\n",
+        "        components = \"write + -ing\"\n",
+        "        pattern = \"Regular inflection\"\n",
+        "        rule = \"Remove -ing; restore final e\"\n",
+        "        root = \"write\"\n",
+        "        path.append(\"S2b:REGULAR_ING\")\n",
+        "\n",
+        "    elif word == \"written\":\n",
+        "        components = \"irregular participle of write\"\n",
+        "        pattern = \"Irregular inflection\"\n",
+        "        rule = \"Lexicon lookup: written -> write\"\n",
+        "        root = \"write\"\n",
+        "        path.append(\"S2c:IRREGULAR\")\n",
+        "\n",
+        "    else:\n",
+        "        components = word\n",
+        "        pattern = \"Unknown\"\n",
+        "        rule = \"No rule matched\"\n",
+        "        root = word\n",
+        "        path.append(\"S2x:UNKNOWN\")\n",
+        "\n",
+        "    path.append(\"S3:NORMALIZE\")\n",
+        "\n",
+        "    return {\n",
+        "        \"Original Word\": word,\n",
+        "        \"Morphological Components\": components,\n",
+        "        \"Pattern\": pattern,\n",
+        "        \"Rule Applied\": rule,\n",
+        "        \"Root\": root,\n",
+        "        \"Normalized Form\": root,\n",
+        "        \"State Transition Path\": \" -> \".join(path)\n",
+        "    }\n",
+        "\n",
+        "df = pd.DataFrame([parse_word(w) for w in words])\n",
+        "print(df.to_string(index=False))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vqa_XpIbnraT",
+        "outputId": "daf1c919-ca01-4e45-e52b-35584e7c0aa7"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Word      Morphological Components              Pattern                     Rule Applied  Root Normalized Form                                   State Transition Path\n",
+            "       writes                    write + -s   Regular inflection                        Remove -s write           write   S0:START -> S1:MATCH -> S2a:REGULAR_S -> S3:NORMALIZE\n",
+            "      writing                  write + -ing   Regular inflection     Remove -ing; restore final e write           write S0:START -> S1:MATCH -> S2b:REGULAR_ING -> S3:NORMALIZE\n",
+            "      written irregular participle of write Irregular inflection Lexicon lookup: written -> write write           write   S0:START -> S1:MATCH -> S2c:IRREGULAR -> S3:NORMALIZE\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "from nltk.stem import PorterStemmer\n",
+        "\n",
+        "stemmer = PorterStemmer()\n",
+        "\n",
+        "words = [\"relational\", \"relation\", \"relate\"]\n",
+        "\n",
+        "# Trace the relevant Porter rules for these specific inputs.\n",
+        "def porter_trace(word):\n",
+        "    steps = []\n",
+        "\n",
+        "    if word == \"relational\":\n",
+        "        steps.append(\"Original: relational\")\n",
+        "        steps.append(\"Step 2: ational -> ate: relate\")\n",
+        "        steps.append(\"Step 5: remove final e: relat\")\n",
+        "\n",
+        "    elif word == \"relation\":\n",
+        "        steps.append(\"Original: relation\")\n",
+        "        steps.append(\"Step 4: remove ion: relat\")\n",
+        "\n",
+        "    elif word == \"relate\":\n",
+        "        steps.append(\"Original: relate\")\n",
+        "        steps.append(\"Step 5: remove final e: relat\")\n",
+        "\n",
+        "    final_stem = stemmer.stem(word)\n",
+        "\n",
+        "    return {\n",
+        "        \"Original Word\": word,\n",
+        "        \"Applied Rules\": \" | \".join(steps[1:]),\n",
+        "        \"Intermediate Forms\": \" -> \".join(steps),\n",
+        "        \"Porter Stem\": final_stem\n",
+        "    }\n",
+        "\n",
+        "results = [porter_trace(word) for word in words]\n",
+        "\n",
+        "df = pd.DataFrame(results)\n",
+        "print(df.to_string(index=False))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "H5KIDm42nzrL",
+        "outputId": "fbd4a915-1883-47fa-af4f-840f67b1f076"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Word                                                  Applied Rules                                                                      Intermediate Forms Porter Stem\n",
+            "   relational Step 2: ational -> ate: relate | Step 5: remove final e: relat Original: relational -> Step 2: ational -> ate: relate -> Step 5: remove final e: relat       relat\n",
+            "     relation                                      Step 4: remove ion: relat                                         Original: relation -> Step 4: remove ion: relat       relat\n",
+            "       relate                                  Step 5: remove final e: relat                                       Original: relate -> Step 5: remove final e: relat       relat\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
