@@ -1,0 +1,367 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/chaitanya-ram33/DSA0302-NLP/blob/main/CO2%20AT2%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "words = [\"analyzing\", \"analysis\", \"analytical\"]\n",
+        "\n",
+        "data = {\n",
+        "    \"analyzing\": [\"analyze\", \"-\", \"-ing\",\n",
+        "                  \"Inflectional\", \"ANALYZE\"],\n",
+        "\n",
+        "    \"analysis\": [\"analys\", \"-\", \"-is\",\n",
+        "                 \"Derivational\", \"ANALYZE\"],\n",
+        "\n",
+        "    \"analytical\": [\"analys\", \"-\", \"-tical\",\n",
+        "                   \"Derivational\", \"ANALYZE\"]\n",
+        "}\n",
+        "\n",
+        "print(\"MORPHOLOGICAL ANALYSIS\")\n",
+        "print(\"-\" * 80)\n",
+        "\n",
+        "for word in words:\n",
+        "    root, prefix, suffix, typ, normal = data[word]\n",
+        "\n",
+        "    print(\"\\nOriginal Word:\", word)\n",
+        "    print(\"Root Word:\", root)\n",
+        "    print(\"Prefix:\", prefix)\n",
+        "    print(\"Suffix:\", suffix)\n",
+        "    print(\"Transformation Type:\", typ)\n",
+        "    print(\"Normalized Output:\", normal)"
+      ],
+      "metadata": {
+        "id": "iFvprWLB4aHY",
+        "outputId": "5299c570-41f7-437c-88bd-4aafca18771f",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "iFvprWLB4aHY",
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "MORPHOLOGICAL ANALYSIS\n",
+            "--------------------------------------------------------------------------------\n",
+            "\n",
+            "Original Word: analyzing\n",
+            "Root Word: analyze\n",
+            "Prefix: -\n",
+            "Suffix: -ing\n",
+            "Transformation Type: Inflectional\n",
+            "Normalized Output: ANALYZE\n",
+            "\n",
+            "Original Word: analysis\n",
+            "Root Word: analys\n",
+            "Prefix: -\n",
+            "Suffix: -is\n",
+            "Transformation Type: Derivational\n",
+            "Normalized Output: ANALYZE\n",
+            "\n",
+            "Original Word: analytical\n",
+            "Root Word: analys\n",
+            "Prefix: -\n",
+            "Suffix: -tical\n",
+            "Transformation Type: Derivational\n",
+            "Normalized Output: ANALYZE\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "words = [\"disagree\", \"agreement\", \"agreeable\"]\n",
+        "\n",
+        "data = {\n",
+        "    \"disagree\": [\"dis-\", \"agree\", \"-\",\n",
+        "                 \"Derivational\",\n",
+        "                 \"Not agree\"],\n",
+        "\n",
+        "    \"agreement\": [\"-\", \"agree\", \"-ment\",\n",
+        "                  \"Derivational\",\n",
+        "                  \"State of agreeing\"],\n",
+        "\n",
+        "    \"agreeable\": [\"-\", \"agree\", \"-able\",\n",
+        "                  \"Derivational\",\n",
+        "                  \"Pleasant or willing to agree\"]\n",
+        "}\n",
+        "\n",
+        "print(\"SENTIMENT MORPHOLOGICAL ANALYSIS\")\n",
+        "print(\"-\" * 60)\n",
+        "\n",
+        "for word in words:\n",
+        "    prefix, root, suffix, typ, meaning = data[word]\n",
+        "\n",
+        "    print(\"\\nOriginal Word:\", word)\n",
+        "    print(\"Prefix:\", prefix)\n",
+        "    print(\"Root:\", root)\n",
+        "    print(\"Suffix:\", suffix)\n",
+        "    print(\"Transformation:\", typ)\n",
+        "    print(\"Meaning:\", meaning)\n",
+        "    print(\"Normalized Form: AGREE\")"
+      ],
+      "metadata": {
+        "id": "JdLx973J4fA8",
+        "outputId": "798865aa-ac73-4652-9775-79b22cbf62e9",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "JdLx973J4fA8",
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "SENTIMENT MORPHOLOGICAL ANALYSIS\n",
+            "------------------------------------------------------------\n",
+            "\n",
+            "Original Word: disagree\n",
+            "Prefix: dis-\n",
+            "Root: agree\n",
+            "Suffix: -\n",
+            "Transformation: Derivational\n",
+            "Meaning: Not agree\n",
+            "Normalized Form: AGREE\n",
+            "\n",
+            "Original Word: agreement\n",
+            "Prefix: -\n",
+            "Root: agree\n",
+            "Suffix: -ment\n",
+            "Transformation: Derivational\n",
+            "Meaning: State of agreeing\n",
+            "Normalized Form: AGREE\n",
+            "\n",
+            "Original Word: agreeable\n",
+            "Prefix: -\n",
+            "Root: agree\n",
+            "Suffix: -able\n",
+            "Transformation: Derivational\n",
+            "Meaning: Pleasant or willing to agree\n",
+            "Normalized Form: AGREE\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "words = [\"govern\", \"government\", \"governance\"]\n",
+        "\n",
+        "data = {\n",
+        "    \"govern\": [\"govern\", \"None\", \"Level 0\"],\n",
+        "    \"government\": [\"govern\", \"-ment\", \"Level 1\"],\n",
+        "    \"governance\": [\"govern\", \"-ance\", \"Level 1\"]\n",
+        "}\n",
+        "\n",
+        "print(\"MORPHOLOGICAL NORMALIZATION\")\n",
+        "print(\"-\" * 60)\n",
+        "\n",
+        "for word in words:\n",
+        "    root, suffix, level = data[word]\n",
+        "\n",
+        "    print(\"\\nOriginal Word:\", word)\n",
+        "    print(\"Root Word:\", root)\n",
+        "    print(\"Suffix:\", suffix)\n",
+        "    print(\"Derivational Level:\", level)\n",
+        "    print(\"Normalized Form: GOVERN\")"
+      ],
+      "metadata": {
+        "id": "4xA9Te0D4k1o",
+        "outputId": "405fec5e-85e2-484d-ba1a-26b3f6ae7e27",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "4xA9Te0D4k1o",
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "MORPHOLOGICAL NORMALIZATION\n",
+            "------------------------------------------------------------\n",
+            "\n",
+            "Original Word: govern\n",
+            "Root Word: govern\n",
+            "Suffix: None\n",
+            "Derivational Level: Level 0\n",
+            "Normalized Form: GOVERN\n",
+            "\n",
+            "Original Word: government\n",
+            "Root Word: govern\n",
+            "Suffix: -ment\n",
+            "Derivational Level: Level 1\n",
+            "Normalized Form: GOVERN\n",
+            "\n",
+            "Original Word: governance\n",
+            "Root Word: govern\n",
+            "Suffix: -ance\n",
+            "Derivational Level: Level 1\n",
+            "Normalized Form: GOVERN\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "words = [\"activate\", \"activation\", \"reactivation\"]\n",
+        "\n",
+        "data = {\n",
+        "    \"activate\": [\"-\", \"act\", \"-ivate\",\n",
+        "                 \"act -> activate\"],\n",
+        "\n",
+        "    \"activation\": [\"-\", \"act\", \"-ivation\",\n",
+        "                   \"act -> activate -> activation\"],\n",
+        "\n",
+        "    \"reactivation\": [\"re-\", \"act\", \"-ivation\",\n",
+        "                     \"act -> activate -> activation -> reactivation\"]\n",
+        "}\n",
+        "\n",
+        "print(\"MORPHOLOGICAL PARSING\")\n",
+        "print(\"-\" * 70)\n",
+        "\n",
+        "for word in words:\n",
+        "    prefix, root, suffix, sequence = data[word]\n",
+        "\n",
+        "    print(\"\\nOriginal Word:\", word)\n",
+        "    print(\"Prefix:\", prefix)\n",
+        "    print(\"Root Word:\", root)\n",
+        "    print(\"Suffix:\", suffix)\n",
+        "    print(\"Derivational Sequence:\", sequence)\n",
+        "    print(\"Normalized Form: ACT\")"
+      ],
+      "metadata": {
+        "id": "yp2h2x124owg",
+        "outputId": "2b489be6-2b75-41d7-edbf-72cb6a1a72bb",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "yp2h2x124owg",
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "MORPHOLOGICAL PARSING\n",
+            "----------------------------------------------------------------------\n",
+            "\n",
+            "Original Word: activate\n",
+            "Prefix: -\n",
+            "Root Word: act\n",
+            "Suffix: -ivate\n",
+            "Derivational Sequence: act -> activate\n",
+            "Normalized Form: ACT\n",
+            "\n",
+            "Original Word: activation\n",
+            "Prefix: -\n",
+            "Root Word: act\n",
+            "Suffix: -ivation\n",
+            "Derivational Sequence: act -> activate -> activation\n",
+            "Normalized Form: ACT\n",
+            "\n",
+            "Original Word: reactivation\n",
+            "Prefix: re-\n",
+            "Root Word: act\n",
+            "Suffix: -ivation\n",
+            "Derivational Sequence: act -> activate -> activation -> reactivation\n",
+            "Normalized Form: ACT\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "words = [\"create\", \"creates\", \"creating\"]\n",
+        "\n",
+        "data = {\n",
+        "    \"create\": [\"None\", \"create\", \"Base Form\"],\n",
+        "    \"creates\": [\"-s\", \"create\", \"Third Person Singular\"],\n",
+        "    \"creating\": [\"-ing\", \"create\", \"Present Participle\"]\n",
+        "}\n",
+        "\n",
+        "print(\"INFLECTIONAL MORPHOLOGY\")\n",
+        "print(\"-\" * 60)\n",
+        "\n",
+        "for word in words:\n",
+        "    suffix, root, category = data[word]\n",
+        "\n",
+        "    print(\"\\nOriginal Word:\", word)\n",
+        "    print(\"Suffix:\", suffix)\n",
+        "    print(\"Root Word:\", root)\n",
+        "    print(\"Grammatical Category:\", category)\n",
+        "    print(\"Normalized Form: CREATE\")"
+      ],
+      "metadata": {
+        "id": "kqIJyXoE4uGR",
+        "outputId": "738f4117-4b48-449c-ed58-7e03ebdba1b1",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "kqIJyXoE4uGR",
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "INFLECTIONAL MORPHOLOGY\n",
+            "------------------------------------------------------------\n",
+            "\n",
+            "Original Word: create\n",
+            "Suffix: None\n",
+            "Root Word: create\n",
+            "Grammatical Category: Base Form\n",
+            "Normalized Form: CREATE\n",
+            "\n",
+            "Original Word: creates\n",
+            "Suffix: -s\n",
+            "Root Word: create\n",
+            "Grammatical Category: Third Person Singular\n",
+            "Normalized Form: CREATE\n",
+            "\n",
+            "Original Word: creating\n",
+            "Suffix: -ing\n",
+            "Root Word: create\n",
+            "Grammatical Category: Present Participle\n",
+            "Normalized Form: CREATE\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Welcome To Colab",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
