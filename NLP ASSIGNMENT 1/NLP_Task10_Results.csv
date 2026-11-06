@@ -1,0 +1,5 @@
+Record ID,Record Type,Tokens Processed,Entities Found,Morphological Analyses,Runtime (Seconds)
+R001,Discharge Summary,53,11,2,0.0006388510000761016
+R002,Prescription,30,4,1,0.00048815099989951705
+R003,Operation Note,27,3,2,0.0003079799998886301
+R004,Nursing Observation,32,4,1,0.0005295999999361811

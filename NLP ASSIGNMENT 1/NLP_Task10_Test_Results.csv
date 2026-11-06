@@ -1,0 +1,11 @@
+Test Case,Input,Expected,Actual,Status
+Patient ID,PT12345,True,True,PASS
+Invalid Patient ID,PT12AB,False,False,PASS
+Blood Pressure,120/80 mmHg,True,True,PASS
+Invalid BP,120-80 mmHg,False,False,PASS
+Temperature,37.2 C,True,True,PASS
+Invalid Temperature,Hot,False,False,PASS
+ICD Code,A12.3,True,True,PASS
+Invalid ICD Code,12345,False,False,PASS
+Morphology,fractures,True,True,PASS
+Unknown Word,unknownword,False,False,PASS
